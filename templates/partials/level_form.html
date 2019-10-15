@@ -1,0 +1,27 @@
+<label for="name">Name:</label>
+<input id="name" type="text" name="name" value="{{char.name}}">
+<!-- One dropdown per level -->
+<br>
+<br>
+Level:
+{% for level in levels %}
+    <p>
+    {% if level < 9 %}
+    <!-- Add spaces to align dropdowns -->
+    &nbsp;
+    {% endif %}
+    {{ level+1 }}&nbsp;
+    <select name="{{level+1}}">
+        <!-- Default value before selection -->
+        <option value="">Select Class</option>
+        {% for class in classes %}
+            {% if char[(level+1)|string] == class['name'] %}
+                <option selected value="{{class['name']}}">{{class['name']}}</option>
+            {% else %}
+                <option value="{{class['name']}}">{{class['name']}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    </p>
+{% endfor %}
+<button type="submit">Save</button>
