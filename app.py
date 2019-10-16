@@ -46,6 +46,12 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/all')
+def show_all_chars():
+    """Show a list of all characters"""
+    return render_template('char_all.html', chars=characters.find())
+
+
 @app.route('/new')
 def new_char():
     """Show the form to create a new character"""
@@ -133,6 +139,13 @@ def update_char(char_id):
         {"_id": ObjectId(char_id)},
         {"$set": char})
     return redirect(url_for('show_char', char_id=char_id))
+
+
+@app.route('/<char_id>/delete', methods=['POST'])
+def delete_char(char_id):
+    """Delete a character"""
+    characters.delete_one({"_id": ObjectId(char_id)})
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':

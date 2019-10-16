@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% for char in chars %}
+        <p><a href="/{{ char._id}}">{{char.name}}</a></p>
+    {% endfor %}
+    <a href="/">Home</a>
+{% endblock %}
