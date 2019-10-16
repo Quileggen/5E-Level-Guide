@@ -15,7 +15,7 @@ Level:
         <!-- Default value before selection -->
         <option value="">Select Class</option>
         {% for class in classes %}
-            {% if char[level|string] == class %}
+            {% if char_class[level-1] == class %}
                 <option selected value="{{class}}">{{class}}</option>
             {% else %}
                 <option value="{{class}}">{{class}}</option>
