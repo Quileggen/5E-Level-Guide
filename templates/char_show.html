@@ -4,4 +4,10 @@
     <form action="/{{ char._id }}" method="POST">
         {% include 'partials/level_form.html' %}
     </form>
+    {% for feature in features %}
+        {% for feat_name in feature %}
+            {{ feat_name }}&nbsp;
+        {% endfor %}
+        <br>
+    {% endfor %}
 {% endblock %}

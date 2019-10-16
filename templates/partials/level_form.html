@@ -6,16 +6,16 @@
 Level:
 {% for level in levels %}
     <p>
-    {% if level < 9 %}
+    {% if level < 10 %}
     <!-- Add spaces to align dropdowns -->
     &nbsp;
     {% endif %}
-    {{ level+1 }}&nbsp;
-    <select name="{{level+1}}">
+    {{ level }}&nbsp;
+    <select name="{{level}}">
         <!-- Default value before selection -->
         <option value="">Select Class</option>
         {% for class in classes %}
-            {% if char[(level+1)|string] == class %}
+            {% if char[level|string] == class %}
                 <option selected value="{{class}}">{{class}}</option>
             {% else %}
                 <option value="{{class}}">{{class}}</option>
