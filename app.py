@@ -1,7 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import classes
+import requests
+import json
+# import classes
 import os
 
 app = Flask(__name__)
@@ -14,6 +16,17 @@ characters = db.characters
 app = Flask(__name__)
 
 
+def get_class_names():
+    r = requests.get("http://www.dnd5eapi.co/api/classes")
+    if r.status_code == 200:
+        classes = json.loads(r.content)["results"]
+        class_list = [name["name"] for name in classes]
+    else:
+        classes = "None"
+        class_list = []
+    return class_list
+
+
 @app.route('/')
 def index():
     """Return homepage."""
@@ -24,7 +37,7 @@ def index():
 def new_char():
     """Show the form to create a new character"""
     return render_template('char_new.html', char={}, levels=range(20),
-                           classes=classes.classes)
+                           classes=get_class_names())
 
 
 @app.route('/new', methods=['POST'])
@@ -32,27 +45,10 @@ def create_char():
     """Create a new character and insert it into the database"""
     char = {
         "name": request.form.get("name"),
-        "1": request.form.get("1"),
-        "2": request.form.get("2"),
-        "3": request.form.get("3"),
-        "4": request.form.get("4"),
-        "5": request.form.get("5"),
-        "6": request.form.get("6"),
-        "7": request.form.get("7"),
-        "8": request.form.get("8"),
-        "9": request.form.get("9"),
-        "10": request.form.get("10"),
-        "11": request.form.get("11"),
-        "12": request.form.get("12"),
-        "13": request.form.get("13"),
-        "14": request.form.get("14"),
-        "15": request.form.get("15"),
-        "16": request.form.get("16"),
-        "17": request.form.get("17"),
-        "18": request.form.get("18"),
-        "19": request.form.get("19"),
-        "20": request.form.get("20")
     }
+    for i in range(20):
+        char[str(i + 1)] = request.form.get(str(i + 1))
+
     char_id = characters.insert_one(char).inserted_id
     return redirect(url_for('show_char', char_id=char_id))
 
@@ -62,7 +58,7 @@ def show_char(char_id):
     """Display a character"""
     char = characters.find_one({"_id": ObjectId(char_id)})
     return render_template('char_show.html', char=char, levels=range(20),
-                           classes=classes.classes)
+                           classes=get_class_names())
 
 
 @app.route('/<char_id>', methods=['POST'])
@@ -70,27 +66,9 @@ def update_char(char_id):
     """Update the information for a character"""
     char = {
         "name": request.form.get("name"),
-        "1": request.form.get("1"),
-        "2": request.form.get("2"),
-        "3": request.form.get("3"),
-        "4": request.form.get("4"),
-        "5": request.form.get("5"),
-        "6": request.form.get("6"),
-        "7": request.form.get("7"),
-        "8": request.form.get("8"),
-        "9": request.form.get("9"),
-        "10": request.form.get("10"),
-        "11": request.form.get("11"),
-        "12": request.form.get("12"),
-        "13": request.form.get("13"),
-        "14": request.form.get("14"),
-        "15": request.form.get("15"),
-        "16": request.form.get("16"),
-        "17": request.form.get("17"),
-        "18": request.form.get("18"),
-        "19": request.form.get("19"),
-        "20": request.form.get("20")
     }
+    for i in range(20):
+        char[str(i + 1)] = request.form.get(str(i + 1))
     characters.update_one(
         {"_id": ObjectId(char_id)},
         {"$set": char})
