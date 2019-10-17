@@ -13,7 +13,7 @@
                 <td>
                     <select name="{{level}}">
                         <!-- Default value before selection -->
-                        <option value="">Select Class</option>
+                        <option value="N/A">Select Class</option>
                         {% for class in classes %}
                             {% if char_class[level-1] == class %}
                                 <option selected value="{{class}}">{{class}}</option>
@@ -27,4 +27,3 @@
         {% endfor %}
     </tbody>
 </table>
-<button class="btn btn-primary" type="submit">Save</button>

@@ -1,0 +1,166 @@
+<h2><label for="spell_slots">Spell Slots</label></h2>
+<table name="spell_slots" class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Level</th>
+            {% for num in range(1, 10) %}
+                <th scope="col">{{num}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for level in cast %}
+            <tr>
+                <td>{{ levels[loop.index-1] }}</td>
+                {% if level == '0' %}
+                    {% for num in range(9) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '1' %}
+                    <td>2</td>
+                    {% for num in range(8) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '2' %}
+                    <td>3</td>
+                    {% for num in range(8) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '3' %}
+                    <td>4</td>
+                    <td>2</td>
+                    {% for num in range(7) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '4' %}
+                    <td>4</td>
+                    <td>3</td>
+                    {% for num in range(7) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '5' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>2</td>
+                    {% for num in range(6) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '6' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    {% for num in range(6) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '7' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>1</td>
+                    {% for num in range(5) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '8' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    {% for num in range(5) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '9' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>1</td>
+                    {% for num in range(4) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '10' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    {% for num in range(4) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '11' or level == '12' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>1</td>
+                    {% for num in range(3) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '13' or level == '14' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                    {% for num in range(2) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '15' or level == '16' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    {% for num in range(1) %}
+                    <td>-</td>
+                    {% endfor %}
+                {% elif level == '17'%}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                {% elif level == '18' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                {% elif level == '19' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                {% elif level == '20' %}
+                    <td>4</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

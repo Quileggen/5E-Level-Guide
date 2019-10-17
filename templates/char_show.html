@@ -14,39 +14,27 @@
                 </form>
             </div>
             <div class="col-md-auto">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Level</th>
-                            <th scope="col">Class</th>
-                            <th scope="col">Features</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for feature in features %}
-                            <tr>
-                                <td>{{loop.index}}</td>
-                                <td>{{char[loop.index|string]}}</td>
-                                <td>
-                                    {% for feat_name in feature %}
-                                        {{ feat_name }}{% if loop.index != loop.length %},&nbsp;{% endif %}
-                                    {% endfor %}
-                                    <br>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                {% include 'partials/feature_table.html' %}
+            </div>
+            <div class="col-md-auto">
+                    {% include 'partials/spell_table.html' %}
             </div>
         </div>
+        <!-- <div class="row justify-content-end">
+            
+        </div> -->
         <div class="row justify-content-end">
+            
             <div class="col-2">
-                    <a href="/">Home</a>
+                <button class="btn btn-primary" form="char_info" type="submit">Save</button>
             </div>
             <div class="col-2">
-                <form action="/{{ char._id}}/delete" method="POST">
-                    <button class="btn btn-primary" type="submit">Delete Character</button>
-                </form>
+                    <form action="/{{ char._id}}/delete" method="POST">
+                        <button class="btn btn-primary" type="submit">Delete Character</button>
+                    </form>
+            </div>
+            <div class="col-2">
+                <a href="/">Home</a>
             </div>
         </div>
     </div>
