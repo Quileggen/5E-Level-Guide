@@ -1,29 +1,54 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <form action="/{{ char._id }}" method="POST">
-        {% include 'partials/level_form.html' %}
-    </form>
-    <table>
-        <tr>
-            <th>Level</th>
-            <th>Class</th>
-            <th>Features</th>
-        </tr>
-        {% for feature in features %}
-            <tr>
-                <td>{{loop.index}}</td>
-                <td>{{char[loop.index|string]}}</td>
-                <td>
-                    {% for feat_name in feature %}
-                        {{ feat_name }}{% if loop.index != loop.length %},&nbsp;{% endif %}
-                    {% endfor %}
-                    <br>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    <form action="/{{ char._id}}/delete" method="POST">
-    <button type="submit">Delete Character</button></form>
-    <a href="/">Home</a>
+    <div class="container">
+        <br>
+        <label for="name">Name:</label>
+        <input id="name" form="char_info" type="text" name="name" value="{{char.name}}">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-auto">
+                <form id="char_info" action="/{{ char._id }}" method="POST">
+                    {% include 'partials/level_form.html' %}
+                </form>
+            </div>
+            <div class="col-md-auto">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Level</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for feature in features %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{char[loop.index|string]}}</td>
+                                <td>
+                                    {% for feat_name in feature %}
+                                        {{ feat_name }}{% if loop.index != loop.length %},&nbsp;{% endif %}
+                                    {% endfor %}
+                                    <br>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-2">
+                    <a href="/">Home</a>
+            </div>
+            <div class="col-2">
+                <form action="/{{ char._id}}/delete" method="POST">
+                    <button class="btn btn-primary" type="submit">Delete Character</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<br>
 {% endblock %}

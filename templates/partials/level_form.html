@@ -1,27 +1,30 @@
-<label for="name">Name:</label>
-<input id="name" type="text" name="name" value="{{char.name}}">
 <!-- One dropdown per level -->
-<br>
-<br>
-Level:
-{% for level in levels %}
-    <p>
-    {% if level < 10 %}
-    <!-- Add spaces to align dropdowns -->
-    &nbsp;
-    {% endif %}
-    {{ level }}&nbsp;
-    <select name="{{level}}">
-        <!-- Default value before selection -->
-        <option value="">Select Class</option>
-        {% for class in classes %}
-            {% if char_class[level-1] == class %}
-                <option selected value="{{class}}">{{class}}</option>
-            {% else %}
-                <option value="{{class}}">{{class}}</option>
-            {% endif %}
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Level</th>
+            <th scope="col">Class</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for level in levels %}
+            <tr>
+                <td>{{ level }}</td>
+                <td>
+                    <select name="{{level}}">
+                        <!-- Default value before selection -->
+                        <option value="">Select Class</option>
+                        {% for class in classes %}
+                            {% if char_class[level-1] == class %}
+                                <option selected value="{{class}}">{{class}}</option>
+                            {% else %}
+                                <option value="{{class}}">{{class}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
         {% endfor %}
-    </select>
-    </p>
-{% endfor %}
-<button type="submit">Save</button>
+    </tbody>
+</table>
+<button class="btn btn-primary" type="submit">Save</button>

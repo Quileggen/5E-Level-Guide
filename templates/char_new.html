@@ -2,6 +2,8 @@
 
 {% block body %}
     <form action="/new" method="POST">
+        <label for="name">Name:</label>
+        <input id="name" type="text" name="name" value="{{char.name}}">
         {% include 'partials/level_form.html' %}
     </form>
 {% endblock %}
