@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    {% for char in chars %}
-        <p><a href="/{{ char._id}}">{{char.name}}</a></p>
-    {% endfor %}
-    <a href="/">Home</a>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8 align-content-center">
+                {% for char in chars %}
+                    <p><a href="/{{ char._id}}">{{char.name}}</a></p>
+                {% endfor %}
+                <a href="/"><button class="btn btn-primary" type="button">Home</button></a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
