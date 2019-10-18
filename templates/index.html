@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <form action="/new">
-        <button class="btn btn-primary" type="submit">Create a Character</button>
-    </form>
-    <form action="/all">
-        <button class="btn btn-primary" type="submit">Show All Characters</button>
-    </form>
+    <br>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col align-self-center">
+                <form action="/new">
+                    <button class="btn btn-primary" type="submit">Create a Character</button>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="row align-items-center">
+            <div class="col align-self-center">
+                <form action="/all">
+                    <button class="btn btn-primary" type="submit">Show All Characters</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
