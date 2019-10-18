@@ -1,18 +1,22 @@
+<!-- Shows the informatino for a single character -->
 {% extends 'base.html' %}
 
 {% block body %}
     <div class="container">
         <br>
+        <!-- Editable name at the top -->
         <label for="name">Name:</label>
         <input id="name" form="char_info" type="text" name="name" value="{{char.name}}">
         <br>
         <br>
         <div class="row">
             <div class="col-md-auto">
+                <!-- Users are able to edit levels at any time -->
                 <form id="char_info" action="/{{ char._id }}" method="POST">
                     {% include 'partials/level_form.html' %}
                 </form>
             </div>
+            <!-- Include the necessary tables -->
             <div class="col-md-auto">
                 {% include 'partials/feature_table.html' %}
             </div>
@@ -20,10 +24,8 @@
                 {% include 'partials/spell_table.html' %}
             </div>
         </div>
-        <!-- <div class="row justify-content-end">
-            
-        </div> -->
         <div class="row justify-content-end">
+            <!-- Navigation buttons at the bottom -->
             <div class="col-2">
                 <button class="btn btn-primary" form="char_info" type="submit">Save</button>
             </div>

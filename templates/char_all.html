@@ -1,9 +1,11 @@
+<!-- Displays a list of all stored characters -->
 {% extends 'base.html' %}
 
 {% block body %}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8 align-content-center">
+                <!-- Shows name, which is a link to the character page -->
                 {% for char in chars %}
                     <p><a href="/{{ char._id}}">{{char.name}}</a></p>
                 {% endfor %}

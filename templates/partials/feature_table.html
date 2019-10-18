@@ -1,18 +1,24 @@
+<!-- Displays the list of features for each level in table format -->
 <table class="table">
     <thead class="thead-light">
         <tr>
+            <!-- Headers -->
             <th scope="col">Level</th>
             <th scope="col">Class</th>
             <th scope="col">Features</th>
         </tr>
     </thead>
     <tbody>
+        <!-- Loop through lists of features -->
         {% for feature in features %}
             <tr>
+                <!-- Set levels and class levels -->
                 <td>{{loop.index}}</td>
-                <td>{{char[loop.index|string]|replace(cast, "")}}</td>
+                <td>{{char[loop.index|string]}}</td>
                 <td>
+                    <!-- Loop through feature in feature list -->
                     {% for feat_name in feature %}
+                        <!-- Add commas if it's not at the end of the list -->
                         {{ feat_name }}{% if loop.index != loop.length %},&nbsp;{% endif %}
                     {% endfor %}
                     <br>

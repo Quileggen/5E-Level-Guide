@@ -1,7 +1,9 @@
+<!-- Displays spell slots for each level in table format -->
 <h2><label for="spell_slots">Spell Slots</label></h2>
 <table name="spell_slots" class="table">
     <thead class="thead-light">
         <tr>
+            <!-- Headers -->
             <th scope="col">Level</th>
             {% for num in range(1, 10) %}
                 <th scope="col">{{num}}</th>
@@ -9,9 +11,12 @@
         </tr>
     </thead>
     <tbody>
+        <!-- Loop through each level in the list of spellcasting levels -->
         {% for level in cast %}
             <tr>
+                <!-- Row labels -->
                 <td>{{ levels[loop.index-1] }}</td>
+                <!-- Check the spellcasting level and display the table row for it -->
                 {% if level == '0' %}
                     {% for num in range(9) %}
                     <td>-</td>

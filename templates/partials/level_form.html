@@ -1,21 +1,26 @@
-<!-- One dropdown per level -->
+<!-- Shows a form which allows users to pick classes for each level -->
 <table class="table">
     <thead class="thead-light">
         <tr>
+            <!-- Table headings -->
             <th scope="col">Level</th>
             <th scope="col">Class</th>
         </tr>
     </thead>
     <tbody>
+        <!-- Loop through levels and make a table row for each one -->
         {% for level in levels %}
             <tr>
                 <td>{{ level }}</td>
                 <td>
+                    <!-- One dropdown per row -->
                     <select name="{{level}}">
                         <!-- Default value before selection -->
                         <option value="N/A">Select Class</option>
+                        <!-- Each dropdown has every class listed -->
                         {% for class in classes %}
                             {% if char_class[level-1] == class %}
+                                <!-- If this isn't a new character, the classes are preselected -->
                                 <option selected value="{{class}}">{{class}}</option>
                             {% else %}
                                 <option value="{{class}}">{{class}}</option>

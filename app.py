@@ -8,6 +8,7 @@ import os
 
 app = Flask(__name__)
 
+# Setting up MongoDB
 host = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/LevelGuide")
 client = MongoClient(host=f"{host}?retryWrites=false")
 db = client.get_default_database()
@@ -34,11 +35,14 @@ def init_char():
             "N/A": 0
         }
     }
+    # Check the class input in each dropdown in the form
     for level in range(1, 21):
         char_class = request.form.get(str(level))
         char["class_levels"][char_class] += 1
         class_level = char["class_levels"][char_class]
         cast_level = get_spell_level(char)
+
+        # Format each level string for use later
         char[str(level)] = f"{char_class} {class_level} {cast_level}"
 
     return char
@@ -46,6 +50,7 @@ def init_char():
 
 def get_spell_level(char):
     """Helper function to calculate spellcasting level"""
+    # Full casters count as 1, half casters as 1/2
     cast_level = (char["class_levels"]["Bard"]
                   + char["class_levels"]["Cleric"]
                   + char["class_levels"]["Druid"]
@@ -53,11 +58,12 @@ def get_spell_level(char):
                   + char["class_levels"]["Wizard"]
                   + char["class_levels"]["Paladin"] / 2
                   + char["class_levels"]["Ranger"] / 2)
+    # Round down
     return floor(cast_level)
 
 
 def get_class_names():
-    """Make a call to the 5e API and get the class names"""
+    """Make a call to the 5e API and get the names of each class"""
     r = requests.get("http://www.dnd5eapi.co/api/classes")
     if r.status_code == 200:
         classes = json.loads(r.content)["results"]
@@ -70,6 +76,7 @@ def get_class_names():
 
 def get_class_features(char_class, level):
     """Call the 5e API and get features of a class at a designated level"""
+    # Formatting parameters to play nicely
     char_class = char_class.lower()
     level = int(level)
     r = requests.get("http://www.dnd5eapi.co/api/classes/"
@@ -77,6 +84,7 @@ def get_class_features(char_class, level):
     if r.status_code == 200 and r.content != b'null':
         features = json.loads(r.content)["features"]
         feature_list = [feature["name"] for feature in features]
+
         # Filling in for missing elements from the API
         if ((char_class == "barbarian"
                 and (level == 6 or level == 10 or level == 14))
@@ -106,6 +114,7 @@ def get_class_features(char_class, level):
                 and (level == 6 or level == 10 or level == 14))):
             feature_list.append('Subclass feature')
 
+        # More missing features, but for spells this time
         if ((char_class == "bard" or char_class == "cleric"
             or char_class == "druid" or char_class == "sorcerer"
             or char_class == "wizard") and (level % 2 == 1)
@@ -114,6 +123,7 @@ def get_class_features(char_class, level):
     else:
         features = "None"
         feature_list = []
+
     return feature_list
 
 
@@ -125,7 +135,7 @@ def index():
 
 @app.route('/all')
 def show_all_chars():
-    """Show a list of all characters"""
+    """Show a clickable list of all characters"""
     return render_template('char_all.html', chars=characters.find())
 
 
@@ -146,19 +156,31 @@ def create_char():
 
 @app.route('/<char_id>')
 def show_char(char_id):
-    """Display a character"""
+    """Display a character, with levels, features, and spell slots"""
     char = characters.find_one({"_id": ObjectId(char_id)})
     char_features = []
     char_class_list = []
     char_cast_levels = []
+
     # Set specific class info and pass it to the template
     for level in range(1, 21):
+        # Manipulating the string we set earlier to get info
         char_class_info = char[str(level)].split()
+
+        # Set the character's class at each level
         char_class = char_class_info[0]
         char_class_list.append(char_class)
+
+        # Set the level of each class
         char_class_level = char_class_info[1]
+
+        # Set the spellcasting level
         char_cast_levels.append(char_class_info[2])
+
+        # Reformatting the string to be displayed nicely
         char[str(level)] = f"{char_class} {char_class_level}"
+
+        # Getting a list of features
         feature_list = get_class_features(char_class, char_class_level)
         char_features.append(feature_list)
 

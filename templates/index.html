@@ -1,3 +1,4 @@
+<!-- Displays landing page with options to create or view characters -->
 {% extends 'base.html' %}
 
 {% block body %}
@@ -5,14 +6,17 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8 align-content-center">
+                <!-- Intro blurb -->
                 <h1><p class="text-center">Welcome to the 5E Level Planner!<br>
                 Select "Create a character" to get started!</p></h1>
                 <br>
                 <br>
+                <!-- Button to create a character -->
                 <form action="/new">
                     <button class="btn btn-primary btn-block" type="submit">Create a Character</button>
                 </form>
                 <br>
+                <!-- Button to view all characters -->
                 <form action="/all">
                     <button class="btn btn-primary btn-block" type="submit">Show All Characters</button>
                 </form>
