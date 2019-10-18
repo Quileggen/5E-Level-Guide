@@ -151,6 +151,7 @@ def show_char(char_id):
     char_features = []
     char_class_list = []
     char_cast_levels = []
+    # Set specific class info and pass it to the template
     for level in range(1, 21):
         char_class_info = char[str(level)].split()
         char_class = char_class_info[0]
